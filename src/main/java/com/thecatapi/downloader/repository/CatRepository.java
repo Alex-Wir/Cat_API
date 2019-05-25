@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +24,7 @@ public class CatRepository {
     private static final String UTF8 = "UTF-8";
 
     /**
-     * Ignore javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
+     * Prevent javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
      */
     public CatRepository() {
         try {
@@ -31,23 +33,40 @@ public class CatRepository {
             SSLContext.setDefault(ctx);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            //TODO add LOG & RuntimeExcept
         }
     }
 
     public String getOneRandom() {
-
-        JSONArray jsonArray = new JSONArray();
-        try {
-            jsonArray = new JSONArray(IOUtils.toString(new URL(SEARCH_URL), Charset.forName(UTF8)));
-        } catch (IOException e) {
-            System.out.println("Error reading JSON by url");
-            e.printStackTrace();
-        }
-
+        JSONArray jsonArray = getJsonArray(SEARCH_URL);
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         String urlString = jsonObject.getString("url");
         System.out.println(urlString);
         return saveOne(urlString);
+    }
+
+    public Set<String> getAllByLimit(long limit) {
+        JSONArray jsonArray = getJsonArray(SEARCH_URL + "?limit=" + limit);
+        Set<String> filePaths = new HashSet<>();
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = (JSONObject) o;
+            String urlString = jsonObject.getString("url");
+            System.out.println(urlString);
+            filePaths.add(saveOne(urlString));
+        }
+        return filePaths;
+    }
+
+    private JSONArray getJsonArray(String urlForSearch) {
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonArray = new JSONArray(IOUtils.toString(new URL(urlForSearch), Charset.forName(UTF8)));
+        } catch (IOException e) {
+            System.out.println("Error reading JSON by url");
+            //TODO add LOG & RuntimeExcept
+            e.printStackTrace();
+        }
+        return jsonArray;
     }
 
     private String saveOne(String urlString) {
@@ -64,6 +83,7 @@ public class CatRepository {
             url = new URL(urlString);
         } catch (MalformedURLException e) {
             System.out.println("Invalid URL!!!");
+            //TODO add LOG & RuntimeExcept
             e.printStackTrace();
         }
 
@@ -71,6 +91,7 @@ public class CatRepository {
             FileUtils.copyURLToFile(url, newFile, 10000, 10000);
         } catch (IOException e) {
             System.out.println("Save file " + fileName + " error!!!");
+            //TODO add LOG & RuntimeExcept
             e.printStackTrace();
         }
 
@@ -79,6 +100,7 @@ public class CatRepository {
             return filePath;
         } else {
             System.out.println("Saved file  " + fileName + " not found!!!");
+            //TODO add LOG & RuntimeExcept
             return "";
         }
     }
