@@ -4,6 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
@@ -17,11 +19,15 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@PropertySource("classpath:download.properties")
 @Component
 public class CatRepository {
 
     private static final String SEARCH_URL = "https://api.thecatapi.com/v1/images/search";
     private static final String UTF8 = "UTF-8";
+
+    @Value("${download.folder}")
+    private String folder;
 
     /**
      * Prevent javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
@@ -76,9 +82,9 @@ public class CatRepository {
         if (matcher.find()) {
             fileName = urlString.substring(matcher.end()).trim();
         }
-        File newFile = new File("cats/" + fileName);
-        URL url = null;
+        File newFile = new File(folder + fileName);
 
+        URL url = null;
         try {
             url = new URL(urlString);
         } catch (MalformedURLException e) {
@@ -96,8 +102,7 @@ public class CatRepository {
         }
 
         if (newFile.exists()) {
-            String filePath = "cats/" + fileName.toString();
-            return filePath;
+            return (folder + fileName);
         } else {
             System.out.println("Saved file  " + fileName + " not found!!!");
             //TODO add LOG & RuntimeExcept
