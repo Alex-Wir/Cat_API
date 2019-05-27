@@ -1,9 +1,13 @@
 package com.thecatapi.downloader.controller;
 
+import com.thecatapi.downloader.model.CatRequest;
 import com.thecatapi.downloader.service.CatService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @RestController
@@ -13,15 +17,15 @@ public class CatController {
 
     private final CatService catService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getOne() {
-        return catService.getOneRandom();
+    @GetMapping()
+    public ResponseEntity<String> getOne() {
+        return new ResponseEntity<>(catService.getOneRandom(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public Set<String> getAllWithParam(@RequestParam long limit) {
-        System.out.println(limit);
-        return catService.getAllByLimit(limit);
+    @PostMapping
+    public ResponseEntity<Set<String>> getAll(@Valid @RequestBody CatRequest catRequest) {
+        System.out.println("Controller " + catRequest);
+        return new ResponseEntity<>(catService.getAll(catRequest), HttpStatus.OK);
     }
 
 }

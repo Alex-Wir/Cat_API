@@ -51,8 +51,9 @@ public class CatRepository {
         return saveOne(urlString);
     }
 
-    public Set<String> getAllByLimit(long limit) {
-        JSONArray jsonArray = getJsonArray(SEARCH_URL + "?limit=" + limit);
+    public Set<String> getAll(String request) {
+        JSONArray jsonArray = getJsonArray(SEARCH_URL + request);
+        System.out.println(SEARCH_URL + request);
         Set<String> filePaths = new HashSet<>();
         for (Object o : jsonArray) {
             JSONObject jsonObject = (JSONObject) o;
