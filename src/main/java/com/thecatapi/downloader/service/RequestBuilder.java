@@ -33,53 +33,40 @@ public class RequestBuilder {
         byte limit = catRequest.getLimit();
         long page = catRequest.getPage();
         Set<String> categoryIds = catRequest.getCategoryIds();
-        //String format = catRequest.getFormat();
         String breedId = catRequest.getBreedId();
 
         StringBuilder request = new StringBuilder();
         request.append(QUESTION_MARK);
 
         if (size != null) {
-            request.append(SIZE);
-            request.append(size);
-            request.append(AMPERSAND);
+            request.append(SIZE).append(size).append(AMPERSAND);
         }
 
         if (mimeTypes != null) {
-            request.append(MIME_TYPES);
-            request.append(String.join(",", mimeTypes));
-            request.append(AMPERSAND);
+            request.append(MIME_TYPES).append(String.join(",", mimeTypes)).append(AMPERSAND);
         }
 
         if (order != null) {
-            request.append(ORDER);
-            request.append(order);
-            request.append(AMPERSAND);
+            request.append(ORDER).append(order).append(AMPERSAND);
         }
 
         if (limit != 0) {
-            request.append(LIMIT);
-            request.append(limit);
-            request.append(AMPERSAND);
+            request.append(LIMIT).append(limit).append(AMPERSAND);
         }
 
         if (page != 0) {
-            request.append(PAGE);
-            request.append(page);
-            request.append(AMPERSAND);
+            request.append(PAGE).append(page).append(AMPERSAND);
         }
 
         if (categoryIds != null) {
-            request.append(CATEGORY_IDS);
-            request.append(String.join(",", categoryIds));
-            request.append(AMPERSAND);
+            request.append(CATEGORY_IDS).append(String.join(",", categoryIds)).append(AMPERSAND);
         }
 
         if (breedId != null) {
-            request.append(BREED_ID);
-            request.append(breedId);
-            request.append(AMPERSAND);
+            request.append(BREED_ID).append(breedId).append(AMPERSAND);
         }
+
+        request.deleteCharAt(request.lastIndexOf(String.valueOf(AMPERSAND)));
 
         System.out.println("RequestBuilder end " + request);
 
