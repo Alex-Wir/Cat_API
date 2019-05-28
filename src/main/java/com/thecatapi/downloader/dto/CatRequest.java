@@ -1,12 +1,10 @@
-package com.thecatapi.downloader.model;
+package com.thecatapi.downloader.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 @Getter
@@ -23,7 +21,7 @@ public class CatRequest {
     @Pattern(regexp = "^(random|asc|desc)$", message = "{request.order.allowedValues}")
     private String order;
 
-    @Min(value = 1, message = "{request.limit.1to100}")
+    @PositiveOrZero(message = "{request.limit.1to100}")
     @Max(value = 100, message = "{request.limit.1to100}")
     private byte limit;
 

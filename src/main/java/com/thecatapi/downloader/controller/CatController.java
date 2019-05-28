@@ -1,6 +1,6 @@
 package com.thecatapi.downloader.controller;
 
-import com.thecatapi.downloader.model.CatRequest;
+import com.thecatapi.downloader.dto.CatRequest;
 import com.thecatapi.downloader.service.CatService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
