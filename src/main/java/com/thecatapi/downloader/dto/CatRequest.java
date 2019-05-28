@@ -1,10 +1,14 @@
 package com.thecatapi.downloader.dto;
 
+import com.thecatapi.downloader.dto.constraint.MimeTypeConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Set;
 
 @Getter
@@ -15,7 +19,7 @@ public class CatRequest {
     @Pattern(regexp = "^(full|med|small|thumb)$", message = "{request.size.allowedValues}")
     private String size;
 
-    //TODO add validation
+    @MimeTypeConstraint
     private Set<String> mimeTypes;
 
     @Pattern(regexp = "^(rand|asc|desc)$", message = "{request.order.allowedValues}")
@@ -43,5 +47,9 @@ public class CatRequest {
                 this.page == 0 &&
                 this.categoryIds == null &&
                 this.breedId == null);
+    }
+
+    private void validateMimeTypes() {
+
     }
 }

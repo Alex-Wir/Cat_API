@@ -30,7 +30,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         String errorMessage = exception.getBindingResult().getAllErrors().stream()
                 .map(objectError -> objectError.getDefaultMessage().concat(SEMICOLON))
                 .reduce(EMPTY, String::concat);
-        ErrorDto errorDTO = new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR, errorMessage);
+        ErrorDto errorDTO = new ErrorDto(HttpStatus.BAD_REQUEST, errorMessage);
         return new ResponseEntity(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
@@ -40,7 +40,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         String errorMessage = exception.getConstraintViolations().stream()
                 .map(constraintViolation -> constraintViolation.getMessage().concat(SEMICOLON))
                 .reduce(EMPTY, String::concat);
-        ErrorDto errorDTO = new ErrorDto(HttpStatus.INTERNAL_SERVER_ERROR, errorMessage);
+        ErrorDto errorDTO = new ErrorDto(HttpStatus.BAD_REQUEST, errorMessage);
         return handleExceptionInternal(exception, errorDTO, new HttpHeaders(), errorDTO.getHttpStatus(), request);
     }
 

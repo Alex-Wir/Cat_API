@@ -21,8 +21,6 @@ public class RequestBuilder {
 
     public String getRequest(CatRequest catRequest) {
 
-        System.out.println("RequestBuilder Start " + catRequest);
-
         if (catRequest.isEmpty()) {
             return "";
         }
@@ -67,9 +65,6 @@ public class RequestBuilder {
         }
 
         request.deleteCharAt(request.lastIndexOf(String.valueOf(AMPERSAND)));
-
-        System.out.println("RequestBuilder end " + request);
-
         return request.toString();
     }
 }
