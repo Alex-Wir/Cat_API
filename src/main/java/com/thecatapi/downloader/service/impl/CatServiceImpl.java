@@ -1,6 +1,6 @@
 package com.thecatapi.downloader.service.impl;
 
-import com.thecatapi.downloader.model.CatRequest;
+import com.thecatapi.downloader.dto.CatRequest;
 import com.thecatapi.downloader.repository.CatRepository;
 import com.thecatapi.downloader.service.CatService;
 import com.thecatapi.downloader.service.RequestBuilder;

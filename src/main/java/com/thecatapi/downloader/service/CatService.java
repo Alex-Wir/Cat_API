@@ -1,6 +1,6 @@
 package com.thecatapi.downloader.service;
 
-import com.thecatapi.downloader.model.CatRequest;
+import com.thecatapi.downloader.dto.CatRequest;
 
 import java.util.Set;
 
