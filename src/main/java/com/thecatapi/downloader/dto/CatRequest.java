@@ -1,5 +1,6 @@
 package com.thecatapi.downloader.dto;
 
+import com.thecatapi.downloader.dto.constraint.BreedIdConstraint;
 import com.thecatapi.downloader.dto.constraint.CategoryIdsConstraint;
 import com.thecatapi.downloader.dto.constraint.MimeTypeConstraint;
 import lombok.Getter;
@@ -37,7 +38,8 @@ public class CatRequest {
     private Set<String> categoryIds;
 
     //TODO fix validation
-    @Pattern(regexp = "^[a-z]{4}$", message = "{request.breedId.allowedValues}")
+    //@Pattern(regexp = "^[a-z]{4}$", message = "{request.breedId.allowedValues}")
+    @BreedIdConstraint
     private String breedId;
 
     public boolean isEmpty() {
@@ -48,9 +50,5 @@ public class CatRequest {
                 this.page == 0 &&
                 this.categoryIds == null &&
                 this.breedId == null);
-    }
-
-    private void validateMimeTypes() {
-
     }
 }
