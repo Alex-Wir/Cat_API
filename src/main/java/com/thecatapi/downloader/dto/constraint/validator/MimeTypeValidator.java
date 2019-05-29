@@ -1,4 +1,4 @@
-package com.thecatapi.downloader.dto.constraint.impl;
+package com.thecatapi.downloader.dto.constraint.validator;
 
 import com.thecatapi.downloader.dto.constraint.MimeTypeConstraint;
 
@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Set;
 
-public class MimeTypeConstraintImpl implements
+public class MimeTypeValidator implements
         ConstraintValidator<MimeTypeConstraint, Set<String>> {
 
     private static final String JPG = "jpg";
@@ -14,7 +14,7 @@ public class MimeTypeConstraintImpl implements
     private static final String GIF = "gif";
 
     @Override
-    public void initialize(MimeTypeConstraint mimeTypes) {
+    public void initialize(MimeTypeConstraint mimeType) {
     }
 
     @Override

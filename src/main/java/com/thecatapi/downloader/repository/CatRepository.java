@@ -28,6 +28,8 @@ import java.util.regex.Pattern;
 @Slf4j
 public class CatRepository {
 
+    //TODO add Except for zero image result
+
     private static final String SEARCH_URL = "https://api.thecatapi.com/v1/images/search";
     private static final String UTF8 = "UTF-8";
 

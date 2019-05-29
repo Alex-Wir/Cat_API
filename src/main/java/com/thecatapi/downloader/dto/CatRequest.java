@@ -1,5 +1,6 @@
 package com.thecatapi.downloader.dto;
 
+import com.thecatapi.downloader.dto.constraint.CategoryIdsConstraint;
 import com.thecatapi.downloader.dto.constraint.MimeTypeConstraint;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +33,7 @@ public class CatRequest {
     @Min(value = 0, message = "{request.page.positiveOrZero}")
     private long page;
 
-    //TODO add validation
+    @CategoryIdsConstraint
     private Set<String> categoryIds;
 
     //TODO fix validation

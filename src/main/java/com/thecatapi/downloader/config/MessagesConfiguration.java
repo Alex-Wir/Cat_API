@@ -2,7 +2,7 @@ package com.thecatapi.downloader.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
  * MessageSource Bean configuration class
@@ -16,8 +16,9 @@ public class MessagesConfiguration {
      */
     @Bean
     public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("/applicationMessages.properties");
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:applicationMessages");
+        messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 }
