@@ -1,6 +1,6 @@
 package com.thecatapi.downloader.service.impl;
 
-import com.thecatapi.downloader.dto.CatRequest;
+import com.thecatapi.downloader.dto.CatRequestDto;
 import com.thecatapi.downloader.repository.CatRepository;
 import com.thecatapi.downloader.service.CatService;
 import com.thecatapi.downloader.service.RequestBuilder;
@@ -22,7 +22,7 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public Set<String> getAll(CatRequest catRequest) {
+    public Set<String> getAll(CatRequestDto catRequest) {
         String request = requestBuilder.getRequest(catRequest);
         return catRepository.getAll(request);
     }

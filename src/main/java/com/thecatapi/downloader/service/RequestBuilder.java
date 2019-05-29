@@ -1,6 +1,6 @@
 package com.thecatapi.downloader.service;
 
-import com.thecatapi.downloader.dto.CatRequest;
+import com.thecatapi.downloader.dto.CatRequestDto;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -19,7 +19,7 @@ public class RequestBuilder {
     private static final String CATEGORY_IDS = "category_ids=";
     private static final String BREED_ID = "breed_id=";
 
-    public String getRequest(CatRequest catRequest) {
+    public String getRequest(CatRequestDto catRequest) {
 
         if (catRequest.isEmpty()) {
             return "";

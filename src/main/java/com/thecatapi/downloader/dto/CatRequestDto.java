@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class CatRequest {
+public class CatRequestDto {
 
     @Pattern(regexp = "^(full|med|small|thumb)$", message = "{request.size.allowedValues}")
     private String size;
@@ -37,8 +37,6 @@ public class CatRequest {
     @CategoryIdsConstraint
     private Set<String> categoryIds;
 
-    //TODO fix validation
-    //@Pattern(regexp = "^[a-z]{4}$", message = "{request.breedId.allowedValues}")
     @BreedIdConstraint
     private String breedId;
 
