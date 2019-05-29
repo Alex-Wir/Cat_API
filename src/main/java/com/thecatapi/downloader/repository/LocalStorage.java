@@ -23,8 +23,11 @@ public class LocalStorage {
     @Value("${download.folder}")
     private String folder;
 
-    private static final int CONNECTION_TIMEOUT = 10000;
-    private static final int READ_TIMEOUT = 10000;
+    @Value("${connection.timeout}")
+    private int connectionTimeout;
+
+    @Value("${read.timeout}")
+    private int readTimeout;
 
     public String saveFileByUrl(String urlString) {
 
@@ -39,7 +42,7 @@ public class LocalStorage {
         try {
             URL url = new URL(urlString);
             File file = new File(folder + fileName);
-            FileUtils.copyURLToFile(url, file, CONNECTION_TIMEOUT, READ_TIMEOUT);
+            FileUtils.copyURLToFile(url, file, connectionTimeout, readTimeout);
         } catch (IOException e) {
             log.error("Error during saving file by URL = " + urlString, e);
             throw new RuntimeException(localizedMessageSource.getMessage("repository.download.error", new Object[]{}));
