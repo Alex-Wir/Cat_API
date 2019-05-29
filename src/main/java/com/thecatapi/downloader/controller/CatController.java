@@ -1,6 +1,6 @@
 package com.thecatapi.downloader.controller;
 
-import com.thecatapi.downloader.dto.CatRequest;
+import com.thecatapi.downloader.dto.CatRequestDto;
 import com.thecatapi.downloader.service.CatService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class CatController {
     }
 
     @PostMapping
-    public ResponseEntity<Set<String>> getAll(@Valid @RequestBody CatRequest catRequest) {
+    public ResponseEntity<Set<String>> getAll(@Valid @RequestBody CatRequestDto catRequest) {
         System.out.println("Controller " + catRequest);
         return new ResponseEntity<>(catService.getAll(catRequest), HttpStatus.OK);
     }

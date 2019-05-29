@@ -10,18 +10,10 @@ import java.util.stream.Stream;
 
 public class CategoryIdsValidator implements ConstraintValidator<CategoryIdsConstraint, Set<String>> {
 
-    private static CategoryIdsValidator instance;
     private Set<String> validCategoryIds;
 
     private CategoryIdsValidator() {
         validCategoryIds = Stream.of("1", "2", "3", "4", "5", "6", "7", "9", "10", "14", "15").collect(Collectors.toSet());
-    }
-
-    public static CategoryIdsValidator getInstance() {
-        if (instance == null) {
-            return new CategoryIdsValidator();
-        }
-        return instance;
     }
 
     @Override
