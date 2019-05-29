@@ -44,17 +44,13 @@ public class DataProvider {
 
     public Set<String> getAll(String request) {
         JSONArray jsonArray = getJsonArray(SEARCH_URL + request);
-        if (jsonArray.length()==0){
+        if (jsonArray.length() == 0) {
             throw new RuntimeException(localizedMessageSource.getMessage("repository.jsonArray.empty", new Object[]{}));
         }
-        //TODO delete SOUT
-        System.out.println(SEARCH_URL + request);
         Set<String> filePaths = new HashSet<>();
         for (Object o : jsonArray) {
             JSONObject jsonObject = (JSONObject) o;
             String urlString = jsonObject.getString("url");
-            //TODO delete SOUT
-            System.out.println(urlString);
             filePaths.add(localStorage.saveFileByUrl(urlString));
         }
         return filePaths;

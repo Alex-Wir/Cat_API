@@ -20,6 +20,7 @@ import javax.validation.ConstraintViolationException;
 @ControllerAdvice(annotations = RestController.class)
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
     private static final String SEMICOLON = ";";
     private static final String EMPTY = "";
 

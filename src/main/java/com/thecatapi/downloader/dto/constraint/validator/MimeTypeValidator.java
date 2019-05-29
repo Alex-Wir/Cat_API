@@ -19,7 +19,7 @@ public class MimeTypeValidator implements
 
     @Override
     public boolean isValid(Set<String> mimeTypes, ConstraintValidatorContext context) {
-        if (mimeTypes==null) {
+        if (mimeTypes == null) {
             return true;
         }
         for (String mimeType : mimeTypes) {
