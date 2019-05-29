@@ -12,6 +12,9 @@ public class CategoryIdsValidator implements ConstraintValidator<CategoryIdsCons
 
     private Set<String> validCategoryIds;
 
+    /**
+     * Category Ids from https://docs.thecatapi.com/api-reference/categories/categories-list
+     */
     private CategoryIdsValidator() {
         validCategoryIds = Stream.of("1", "2", "3", "4", "5", "6", "7", "9", "10", "14", "15").collect(Collectors.toSet());
     }
