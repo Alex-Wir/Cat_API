@@ -17,11 +17,6 @@ public class CatServiceImpl implements CatService {
     private final RequestBuilder requestBuilder;
 
     @Override
-    public String getOneRandom() {
-        return catRepository.getOneRandom();
-    }
-
-    @Override
     public Set<String> getAll(CatRequestDto catRequest) {
         String request = requestBuilder.getRequest(catRequest);
         return catRepository.getAll(request);

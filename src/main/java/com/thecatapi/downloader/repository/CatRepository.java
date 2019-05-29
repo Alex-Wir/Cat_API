@@ -53,15 +53,6 @@ public class CatRepository {
         }
     }
 
-    public String getOneRandom() {
-        JSONArray jsonArray = getJsonArray(SEARCH_URL);
-        JSONObject jsonObject = jsonArray.getJSONObject(0);
-        String urlString = jsonObject.getString("url");
-        //TODO delete SOUT
-        System.out.println(urlString);
-        return saveOne(urlString);
-    }
-
     public Set<String> getAll(String request) {
         JSONArray jsonArray = getJsonArray(SEARCH_URL + request);
         //TODO delete SOUT
