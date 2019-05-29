@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 @Slf4j
@@ -37,21 +36,12 @@ public class LocalStorage {
             throw new RuntimeException(localizedMessageSource.getMessage("repository.download.error", new Object[]{}));
         }
 
-        URL url;
-
         try {
-            url = new URL(urlString);
-        } catch (MalformedURLException e) {
-            log.error("Invalid URL = " + urlString, e);
-            throw new RuntimeException(localizedMessageSource.getMessage("repository.download.error", new Object[]{}));
-        }
-
-        File file = new File(folder + fileName);
-
-        try {
+            URL url = new URL(urlString);
+            File file = new File(folder + fileName);
             FileUtils.copyURLToFile(url, file, CONNECTION_TIMEOUT, READ_TIMEOUT);
         } catch (IOException e) {
-            log.error("Error during saving file " + fileName, e);
+            log.error("Error during saving file by URL = " + urlString, e);
             throw new RuntimeException(localizedMessageSource.getMessage("repository.download.error", new Object[]{}));
         }
 
