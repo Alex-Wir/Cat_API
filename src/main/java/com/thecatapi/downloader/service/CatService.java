@@ -6,7 +6,5 @@ import java.util.Set;
 
 public interface CatService {
 
-    String getOneRandom();
-
     Set<String> getAll(CatRequestDto catRequest);
 }

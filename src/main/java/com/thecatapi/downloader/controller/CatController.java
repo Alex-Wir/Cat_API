@@ -17,11 +17,6 @@ public class CatController {
 
     private final CatService catService;
 
-    @GetMapping()
-    public ResponseEntity<String> getOne() {
-        return new ResponseEntity<>(catService.getOneRandom(), HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<Set<String>> getAll(@Valid @RequestBody CatRequestDto catRequest) {
         System.out.println("Controller " + catRequest);
