@@ -44,9 +44,6 @@ public class DataProvider {
 
     public Set<String> getAll(String request) {
         JSONArray jsonArray = getJsonArray(SEARCH_URL + request);
-        if (jsonArray.length() == 0) {
-            throw new RuntimeException(localizedMessageSource.getMessage("repository.jsonArray.empty", new Object[]{}));
-        }
         Set<String> filePaths = new HashSet<>();
         for (Object o : jsonArray) {
             JSONObject jsonObject = (JSONObject) o;
