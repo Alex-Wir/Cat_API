@@ -37,5 +37,4 @@ public class CatServiceImplTest {
         when(dataProvider.getAll(request)).thenReturn(stringSet);
         assertEquals(catService.getAll(any(CatRequestDto.class)), stringSet);
     }
-
 }
