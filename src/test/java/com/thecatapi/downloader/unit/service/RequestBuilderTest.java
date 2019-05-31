@@ -42,6 +42,9 @@ public class RequestBuilderTest {
         catRequestWithManyCategories.setCategoryIds(Stream.of("1", "2", "3").collect(Collectors.toSet()));
         CatRequestDto catRequestWithBreedId = new CatRequestDto();
         catRequestWithBreedId.setBreedId("java");
+        CatRequestDto catRequestWithManyParameters = new CatRequestDto();
+        catRequestWithManyParameters.setLimit((byte)1);
+        catRequestWithManyParameters.setPage(1L);
 
         return Stream.of(
                 Arguments.of(new CatRequestDto(), ""),
@@ -53,7 +56,8 @@ public class RequestBuilderTest {
                 Arguments.of(catRequestWithOrder, "?order=asc"),
                 Arguments.of(catRequestWithOneCategory, "?category_ids=1"),
                 Arguments.of(catRequestWithManyCategories, "?category_ids=1,2,3"),
-                Arguments.of(catRequestWithBreedId, "?breed_id=java")
+                Arguments.of(catRequestWithBreedId, "?breed_id=java"),
+                Arguments.of(catRequestWithManyParameters, "?limit=1&page=1")
         );
     }
 }
