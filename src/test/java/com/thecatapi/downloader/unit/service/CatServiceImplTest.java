@@ -33,8 +33,9 @@ public class CatServiceImplTest {
     public void getAllTest() {
         final String request = new String();
         final Set<String> stringSet = Collections.singleton(new String());
+        final CatRequestDto catRequest = new CatRequestDto();
         when(requestBuilder.getRequest(any(CatRequestDto.class))).thenReturn(request);
         when(dataProvider.getAll(request)).thenReturn(stringSet);
-        assertEquals(catService.getAll(any(CatRequestDto.class)), stringSet);
+        assertEquals(catService.getAll(catRequest), stringSet);
     }
 }
