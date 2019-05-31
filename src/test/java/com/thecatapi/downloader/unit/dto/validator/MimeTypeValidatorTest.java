@@ -8,17 +8,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.validation.ConstraintValidatorContext;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MimeTypeValidatorTest {
@@ -26,34 +25,49 @@ public class MimeTypeValidatorTest {
     @InjectMocks
     private MimeTypeValidator mimeTypeValidator;
 
-    @Mock
     private ConstraintValidatorContext context;
 
-    @Mock
-    MimeTypeConstraint mimeTypeConstraint;
-
-    @ParameterizedTest
-    @MethodSource("provideArguments")
-    public void isValidTest(Set<String> set, boolean expectedResult) {
-        assertEquals(mimeTypeValidator.isValid(set, context), expectedResult);
-    }
-
-    private static Stream<Arguments> provideArguments() {
-        return Stream.of(
-                Arguments.of(null, true),
-                Arguments.of(Collections.singleton("jpg"), true),
-                Arguments.of(Collections.singleton("png"), true),
-                Arguments.of(Collections.singleton("gif"), true),
-                Arguments.of(Collections.singleton("XXX"), false),
-                Arguments.of(Stream.of("jpg", "png").collect(Collectors.toSet()), true),
-                Arguments.of(Stream.of("gif", "png").collect(Collectors.toSet()), true),
-                Arguments.of(Stream.of("jpg", "png", "gif").collect(Collectors.toSet()), true),
-                Arguments.of(Stream.of("jpg", "png", "gif", "XXX").collect(Collectors.toSet()), false)
-        );
-    }
+    private MimeTypeConstraint mimeTypeConstraint;
 
     @Test
     public void initializeTest() {
         assertDoesNotThrow(() -> mimeTypeValidator.initialize(mimeTypeConstraint));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideValidArguments")
+    public void isValidTest_setValidMimeTypes_shouldReturnTrue(Set<String> set) {
+        assertTrue(mimeTypeValidator.isValid(set, context));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidArguments")
+    public void isValidTest_setInvalidMimeTypes_shouldReturnFalse(Set<String> set) {
+        assertFalse(mimeTypeValidator.isValid(set, context));
+    }
+
+    /**
+     * Mime types from https://docs.thecatapi.com/example-by-type
+     *
+     * @return - Stream of valid mime-types
+     */
+    private static Stream<Arguments> provideValidArguments() {
+        return Stream.of(
+                Arguments.of(new HashSet<>()),
+                Arguments.of(Collections.singleton("jpg")),
+                Arguments.of(Collections.singleton("png")),
+                Arguments.of(Collections.singleton("gif")),
+                Arguments.of(Stream.of("jpg", "png").collect(Collectors.toSet())),
+                Arguments.of(Stream.of("gif", "png").collect(Collectors.toSet())),
+                Arguments.of(Stream.of("jpg", "png", "gif").collect(Collectors.toSet()))
+        );
+    }
+
+    private static Stream<Arguments> provideInvalidArguments() {
+        return Stream.of(
+                Arguments.of(Collections.singleton(" ")),
+                Arguments.of(Collections.singleton("XXX")),
+                Arguments.of(Stream.of("jpg", "png", "gif", "XXX").collect(Collectors.toSet()))
+        );
     }
 }
