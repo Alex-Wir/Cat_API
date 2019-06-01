@@ -28,6 +28,11 @@ public class BreedIdValidatorTest {
         assertDoesNotThrow(() -> breedIdValidator.initialize(breedIdConstraint));
     }
 
+    @Test
+    public void testIsValid_BreedIdIsNull_shouldReturnTrue(){
+        assertTrue(breedIdValidator.isValid(null, context));
+    }
+
     /**
      * Breed Ids from https://api.thecatapi.com/v1/breeds
      */

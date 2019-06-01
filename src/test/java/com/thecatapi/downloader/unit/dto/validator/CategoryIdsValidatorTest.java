@@ -34,6 +34,11 @@ public class CategoryIdsValidatorTest {
         assertDoesNotThrow(() -> categoryIdsValidator.initialize(constraint));
     }
 
+    @Test
+    public void testIsValid_categoryIdsIsNull_shouldReturnTrue() {
+        assertTrue(categoryIdsValidator.isValid(null, context));
+    }
+
     @ParameterizedTest
     @MethodSource("provideValidArguments")
     public void testIsValid_validCategoryIds_shouldReturnTrue(Set<String> validCategoryIds) {
@@ -67,7 +72,7 @@ public class CategoryIdsValidatorTest {
                 Arguments.of(Collections.singleton("15")),
                 Arguments.of(Stream.of("1", "2", "3", "4", "5", "6", "7", "9", "10", "14", "15")
                         .collect(Collectors.toSet()))
-                );
+        );
     }
 
     private static Stream<Arguments> provideInvalidArguments() {

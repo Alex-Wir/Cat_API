@@ -34,16 +34,21 @@ public class MimeTypeValidatorTest {
         assertDoesNotThrow(() -> mimeTypeValidator.initialize(mimeTypeConstraint));
     }
 
+    @Test
+    public void isValidTest_MimeTypeIsNull_shouldReturnTrue(){
+        assertTrue(mimeTypeValidator.isValid(null, context));
+    }
+
     @ParameterizedTest
     @MethodSource("provideValidArguments")
-    public void isValidTest_setValidMimeTypes_shouldReturnTrue(Set<String> set) {
-        assertTrue(mimeTypeValidator.isValid(set, context));
+    public void isValidTest_setValidMimeTypes_shouldReturnTrue(Set<String> validMimeTypes) {
+        assertTrue(mimeTypeValidator.isValid(validMimeTypes, context));
     }
 
     @ParameterizedTest
     @MethodSource("provideInvalidArguments")
-    public void isValidTest_setInvalidMimeTypes_shouldReturnFalse(Set<String> set) {
-        assertFalse(mimeTypeValidator.isValid(set, context));
+    public void isValidTest_setInvalidMimeTypes_shouldReturnFalse(Set<String> invalidMimeTypes) {
+        assertFalse(mimeTypeValidator.isValid(invalidMimeTypes, context));
     }
 
     /**
