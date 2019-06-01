@@ -1,15 +1,20 @@
 package com.thecatapi.downloader.integration.controller;
 
+import org.apache.commons.io.FileUtils;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Locale;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -17,12 +22,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestPropertySource(locations = "classpath:test.properties")
 public class CatControllerTest {
 
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Value("${download.folder}")
+    private String testFolder;
 
     @Test
     public void testGetAll_emptyRequest_shouldReturn200Status() throws Exception {
@@ -49,7 +58,6 @@ public class CatControllerTest {
                 .andExpect(jsonPath("$.message").value("Limit must be between 1 and 100;"))
                 .andReturn();
     }
-
 
     @Test
     public void testGetAll_wrongSize_shouldReturn400Status() throws Exception {
@@ -105,9 +113,13 @@ public class CatControllerTest {
                 .andReturn();
     }
 
-
-
-
-
+    @AfterEach
+    private void deleteTestFolder() {
+        try {
+            FileUtils.deleteDirectory(new File(testFolder));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
