@@ -1,6 +1,6 @@
-package com.thecatapi.downloader.dto.constraint.validator;
+package com.thecatapi.downloader.constraint.validator;
 
-import com.thecatapi.downloader.dto.constraint.BreedIdConstraint;
+import com.thecatapi.downloader.constraint.BreedIdConstraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

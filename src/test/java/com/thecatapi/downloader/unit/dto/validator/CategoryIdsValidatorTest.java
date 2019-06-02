@@ -1,7 +1,7 @@
 package com.thecatapi.downloader.unit.dto.validator;
 
-import com.thecatapi.downloader.dto.constraint.CategoryIdsConstraint;
-import com.thecatapi.downloader.dto.constraint.validator.CategoryIdsValidator;
+import com.thecatapi.downloader.constraint.CategoryIdsConstraint;
+import com.thecatapi.downloader.constraint.validator.CategoryIdsValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;

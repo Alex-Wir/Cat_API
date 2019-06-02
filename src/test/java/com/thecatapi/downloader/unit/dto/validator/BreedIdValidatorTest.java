@@ -1,7 +1,7 @@
 package com.thecatapi.downloader.unit.dto.validator;
 
-import com.thecatapi.downloader.dto.constraint.BreedIdConstraint;
-import com.thecatapi.downloader.dto.constraint.validator.BreedIdValidator;
+import com.thecatapi.downloader.constraint.BreedIdConstraint;
+import com.thecatapi.downloader.constraint.validator.BreedIdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
