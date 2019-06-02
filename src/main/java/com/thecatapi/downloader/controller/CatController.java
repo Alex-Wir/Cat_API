@@ -29,7 +29,7 @@ public class CatController {
      * Download files by request
      *
      * @param catRequest - request with search parameters
-     * @return - ResponseEntity with Set of downloaded files paths
+     * @return - ResponseEntity with Set of paths to downloaded files
      */
     @PostMapping
     public ResponseEntity<Set<String>> getAll(@Valid @RequestBody CatRequestDto catRequest) {

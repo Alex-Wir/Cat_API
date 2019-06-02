@@ -47,10 +47,10 @@ public class DataProvider {
     }
 
     /**
-     * Get all downloaded files paths by request
+     * Get paths to all downloaded files by request
      *
      * @param request - request with all parameters from RequestBuilder
-     * @return - Set<String> of downloaded files paths
+     * @return - Set<String> of paths to downloaded files
      */
     public Set<String> getAll(String request) {
         JSONArray jsonArray = getJsonArray(SEARCH_URL + request);

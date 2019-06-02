@@ -134,7 +134,7 @@ public class CatControllerTest {
         mockMvc.perform(post("/cats").contentType(APPLICATION_JSON_UTF8).content("{\"order\":\"asdfsaddfsaf\"}"))
                 .andDo(print())
                 .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.message").value("Allowed values for Order: asc, desc, random;"))
+                .andExpect(jsonPath("$.message").value("Allowed values for Order: asc, desc, rand;"))
                 .andReturn();
     }
 

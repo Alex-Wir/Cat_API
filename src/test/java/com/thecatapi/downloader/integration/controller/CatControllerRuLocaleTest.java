@@ -50,7 +50,7 @@ public class CatControllerRuLocaleTest {
                 .locale(Locale.forLanguageTag("ru")))
                 .andDo(print())
                 .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.message").value("Допустимые значения для Order: asc, desc, random;"))
+                .andExpect(jsonPath("$.message").value("Допустимые значения для Order: asc, desc, rand;"))
                 .andReturn();
     }
 
