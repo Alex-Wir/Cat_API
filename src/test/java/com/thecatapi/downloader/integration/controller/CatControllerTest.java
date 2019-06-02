@@ -84,17 +84,31 @@ public class CatControllerTest {
     }
 
     @Test
-    public void testGetAll_request5JpgFile_shouldReturn5JpgFile() throws Exception {
+    public void testGetAll_request3Jpg_shouldReturn3Jpg() throws Exception {
         MvcResult result = mockMvc.perform(post("/cats").contentType(APPLICATION_JSON_UTF8)
-                .content("{\"limit\":5,\"mimeTypes\":[\"jpg\"]}"))
+                .content("{\"limit\":3,\"mimeTypes\":[\"jpg\"]}"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
         Set<String> filePaths = new HashSet<>(Arrays.asList(result.getResponse().getContentAsString().split(",")));
-        for(String filePath:filePaths){
+        for (String filePath : filePaths) {
             assertTrue(filePath.contains(".jpg"));
         }
-        assertEquals(filePaths.size(), 5);
+        assertEquals(filePaths.size(), 3);
+    }
+
+    @Test
+    public void testGetAll_request3PngOrGif_shouldReturn3PngOrGif() throws Exception {
+        MvcResult result = mockMvc.perform(post("/cats").contentType(APPLICATION_JSON_UTF8)
+                .content("{\"limit\":3,\"mimeTypes\":[\"png\",\"gif\"]}"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        Set<String> filePaths = new HashSet<>(Arrays.asList(result.getResponse().getContentAsString().split(",")));
+        for (String filePath : filePaths) {
+            assertTrue(filePath.contains(".png") || filePath.contains(".gif"));
+        }
+        assertEquals(filePaths.size(), 3);
     }
 
     @Test
