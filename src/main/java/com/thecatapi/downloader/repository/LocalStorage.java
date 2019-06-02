@@ -32,8 +32,6 @@ public class LocalStorage {
     public String saveFileByUrl(String urlString) {
 
         String fileName = urlString.substring(urlString.lastIndexOf("/") + 1);
-        //TODO delete SOUT
-        System.out.println(fileName);
 
         if (fileName.isEmpty()) {
             log.error("Invalid file name in URL = " + urlString);
@@ -48,6 +46,8 @@ public class LocalStorage {
             log.error("Error during saving file by URL = " + urlString, e);
             throw new RuntimeException(localizedMessageSource.getMessage("repository.download.error", new Object[]{}));
         }
+
+        log.info("File successfully saved " + fileName);
 
         return folder + fileName;
     }
