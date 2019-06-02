@@ -1,8 +1,8 @@
 package com.thecatapi.downloader.dto;
 
-import com.thecatapi.downloader.dto.constraint.BreedIdConstraint;
-import com.thecatapi.downloader.dto.constraint.CategoryIdsConstraint;
-import com.thecatapi.downloader.dto.constraint.MimeTypeConstraint;
+import com.thecatapi.downloader.constraint.BreedIdConstraint;
+import com.thecatapi.downloader.constraint.CategoryIdsConstraint;
+import com.thecatapi.downloader.constraint.MimeTypeConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
