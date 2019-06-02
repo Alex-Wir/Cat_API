@@ -11,11 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -46,8 +52,49 @@ public class CatControllerTest {
         mockMvc.perform(post("/cats").contentType(APPLICATION_JSON_UTF8).content("{\"mimeTypes\":[\"jpg\"]}"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.containsString("jpg")))
+                .andExpect(content().string(Matchers.containsString(".jpg")))
                 .andReturn();
+    }
+
+    @Test
+    public void testGetAll_requestPng_shouldReturnPng() throws Exception {
+        mockMvc.perform(post("/cats").contentType(APPLICATION_JSON_UTF8).content("{\"mimeTypes\":[\"png\"]}"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(Matchers.containsString(".png")))
+                .andReturn();
+    }
+
+    @Test
+    public void testGetAll_requestGif_shouldReturnGif() throws Exception {
+        mockMvc.perform(post("/cats").contentType(APPLICATION_JSON_UTF8).content("{\"mimeTypes\":[\"gif\"]}"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(Matchers.containsString(".gif")))
+                .andReturn();
+    }
+
+    @Test
+    public void testGetAll_request2File_shouldReturn2File() throws Exception {
+        MvcResult result = mockMvc.perform(post("/cats").contentType(APPLICATION_JSON_UTF8).content("{\"limit\":2}"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        assertEquals(result.getResponse().getContentAsString().split(",").length, 2);
+    }
+
+    @Test
+    public void testGetAll_request5JpgFile_shouldReturn5JpgFile() throws Exception {
+        MvcResult result = mockMvc.perform(post("/cats").contentType(APPLICATION_JSON_UTF8)
+                .content("{\"limit\":5,\"mimeTypes\":[\"jpg\"]}"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        Set<String> filePaths = new HashSet<>(Arrays.asList(result.getResponse().getContentAsString().split(",")));
+        for(String filePath:filePaths){
+            assertTrue(filePath.contains(".jpg"));
+        }
+        assertEquals(filePaths.size(), 5);
     }
 
     @Test
