@@ -13,6 +13,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Set;
 
+/**
+ * Request DTO class. Fields are parameters of request
+ */
 @Getter
 @Setter
 @ToString
@@ -40,6 +43,11 @@ public class CatRequestDto {
     @BreedIdConstraint
     private String breedId;
 
+    /**
+     * Check instance of CatRequestDTO is empty
+     *
+     * @return - true, if all fields are null or 0
+     */
     public boolean isEmpty() {
         return (this.size == null &&
                 this.mimeTypes == null &&

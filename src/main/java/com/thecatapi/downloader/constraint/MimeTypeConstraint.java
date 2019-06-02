@@ -6,6 +6,9 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
+/**
+ * Custom annotation for validation mimeTypes
+ */
 @Documented
 @Constraint(validatedBy = MimeTypeValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})

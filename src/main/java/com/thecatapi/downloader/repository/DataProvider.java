@@ -16,6 +16,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class for get data from thecatapi.com
+ */
 @Repository
 @Slf4j
 public class DataProvider {
@@ -27,6 +30,7 @@ public class DataProvider {
     private final LocalStorage localStorage;
 
     /**
+     * Custom constructor
      * Prevent javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure
      */
     public DataProvider(LocalizedMessageSource localizedMessageSource, LocalStorage localStorage) {
@@ -42,6 +46,12 @@ public class DataProvider {
         }
     }
 
+    /**
+     * Get paths to all downloaded files by request
+     *
+     * @param request - request with all parameters from RequestBuilder
+     * @return - Set<String> of paths to downloaded files
+     */
     public Set<String> getAll(String request) {
         JSONArray jsonArray = getJsonArray(SEARCH_URL + request);
         Set<String> filePaths = new HashSet<>();

@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Class for download files
+ */
 @Slf4j
 @Repository
 @RequiredArgsConstructor
@@ -29,6 +32,12 @@ public class LocalStorage {
     @Value("${read.timeout}")
     private int readTimeout;
 
+    /**
+     * Download file by direct url
+     *
+     * @param urlString - file url
+     * @return - file path in local storage
+     */
     public String saveFileByUrl(String urlString) {
 
         String fileName = urlString.substring(urlString.lastIndexOf("/") + 1);

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Set;
 
+/**
+ * Cat controller
+ */
 @RestController
 @RequestMapping("/cats")
 @AllArgsConstructor
@@ -22,10 +25,15 @@ public class CatController {
 
     private final CatService catService;
 
+    /**
+     * Download files by request
+     *
+     * @param catRequest - request with search parameters
+     * @return - ResponseEntity with Set of paths to downloaded files
+     */
     @PostMapping
     public ResponseEntity<Set<String>> getAll(@Valid @RequestBody CatRequestDto catRequest) {
         log.info("Start request " + catRequest);
         return new ResponseEntity<>(catService.getAll(catRequest), HttpStatus.OK);
     }
-
 }

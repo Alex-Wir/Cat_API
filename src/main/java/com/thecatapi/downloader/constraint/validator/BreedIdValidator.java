@@ -8,6 +8,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Class for breedId validation
+ */
 public class BreedIdValidator implements ConstraintValidator<BreedIdConstraint, String> {
 
     private Set<String> validBreedIds;
@@ -27,10 +30,22 @@ public class BreedIdValidator implements ConstraintValidator<BreedIdConstraint, 
         ).collect(Collectors.toSet());
     }
 
+    /**
+     * Implement method initialize of interface ConstraintValidator
+     *
+     * @param breedId - BreedIdConstraint
+     */
     @Override
     public void initialize(BreedIdConstraint breedId) {
     }
 
+    /**
+     * Validate breedId
+     *
+     * @param breedId - breedId from request
+     * @param context - ConstraintValidatorContext
+     * @return - true, if BreeId is valid
+     */
     @Override
     public boolean isValid(String breedId, ConstraintValidatorContext context) {
         if (breedId == null) {
