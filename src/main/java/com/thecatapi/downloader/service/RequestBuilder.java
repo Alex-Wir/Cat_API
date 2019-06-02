@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+/**
+ * Request builder
+ */
 @Component
 public class RequestBuilder {
 
@@ -19,6 +22,12 @@ public class RequestBuilder {
     private static final String CATEGORY_IDS = "category_ids=";
     private static final String BREED_ID = "breed_id=";
 
+    /**
+     * Build String request from CatRequestDto instance
+     *
+     * @param catRequest - CatRequestDto instance
+     * @return - String url request
+     */
     public String getRequest(CatRequestDto catRequest) {
 
         if (catRequest.isEmpty()) {
