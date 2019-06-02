@@ -27,7 +27,7 @@ public class CatRequestDto {
     @MimeTypeConstraint
     private Set<String> mimeTypes;
 
-    @Pattern(regexp = "^(random|asc|desc)$", message = "{request.order.allowedValues}")
+    @Pattern(regexp = "^(rand|asc|desc)$", message = "{request.order.allowedValues}")
     private String order;
 
     @PositiveOrZero(message = "{request.limit.1to100}")
