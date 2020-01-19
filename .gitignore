@@ -2,5 +2,6 @@
 target/
 images/
 images_test/
+logs/
 Cat_Downloader.iml
 
