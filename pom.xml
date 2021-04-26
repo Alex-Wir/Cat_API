@@ -19,7 +19,7 @@
 
         <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
 
-        <commons.io>2.6</commons.io>
+        <commons.io>2.7</commons.io>
         <json>20180813</json>
         <lombok>1.18.8</lombok>
         <mockito>2.23.4</mockito>
